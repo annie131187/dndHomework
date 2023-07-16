@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.container {
+  display: grid;
+  height: 100vh;
+  padding: 20px 0;
+  grid-template-columns: repeat(3, 30%);
+  justify-content: space-evenly;
+  border: 1px solid #000;
+  background-color: cornflowerblue;
+}
+
+.column {  
+  border-radius: 5px;
+  background-color: gainsboro;
+}
+
+.column-title {
+  padding: 15px;
+  font-size: 17px;
+  text-transform: uppercase;
+}
+
+.cards {
+  min-height: 40px;
+}
+
+.cards-item {
+  position: relative;
+  margin: 0 5px 8px 5px;
+  background-color: #fff;
+  padding: 8px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.cards-item:active {
+  cursor: grabbing;
+
+} 
+
+.remove-btn {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  right: 5px;
+  border: none;
+  border-top-right-radius: 5px;
+  outline: none;
+  background-image: url("/src/image/close-svgrepo-com.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  
+}
+
+.add-btn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 10px 0 10px 25px;
+  background-image:  url("/src/image/plus-svgrepo-com.svg");
+  background-repeat: no-repeat;
+  background-size: 18px;
+  background-position: left 5px center;
+  color:rgb(81, 93, 104);
+  text-align: left;
+}
+
+.add-btn:hover {
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+  background-color: rgb(166, 164, 164);
+}
+
+.form {
+  display: none;
+  padding: 5px;
+}
+
+.textarea {
+  width: 100%;
+  padding: 8px;
+  resize: none;
+  margin-bottom: 8px;;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+.group-btn {
+  display: flex;
+  align-items: center;
+}
+
+.add-card-btn {
+  padding: 8px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(8, 154, 8);
+  color: #fff;
+  cursor: pointer;
+}
+
+.close-card-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  background-image: url("/src/image/close-svgrepo-com.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
