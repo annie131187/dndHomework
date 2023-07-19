@@ -99,7 +99,12 @@ const dragNdrop = () => {
       card.addEventListener("drop", function (e) {
         this.style.backgroundColor = "rgba(0, 0, 0, 0)";
 
-        this.insertBefore(draggedItem, e.target);
+        // не работает проверка!
+        if (!e.target.children) {
+          this.append(draggedItem);
+        } else {
+          this.insertBefore(draggedItem, e.target);
+        }
       });
     }
   }
