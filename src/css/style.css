@@ -46,21 +46,25 @@
 
 } 
 
-.remove-btn {
+.cards-item .remove-btn {
+  display: none;
   position: absolute;
   width: 20px;
   height: 20px;
-  top: 0;
-  right: 5px;
+  top: 1px;
+  right: 1px;
   border: none;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
   outline: none;
   background-image: url("/src/image/close-svgrepo-com.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  
+}
+
+.cards-item:hover .remove-btn {
+  display: block;
 }
 
 .add-btn {

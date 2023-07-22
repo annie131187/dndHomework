@@ -20,16 +20,31 @@ columns.forEach((col) => {
       btn.style.display = "block";
     });
 
-    addBtn.addEventListener("click", () => {
+    const addNewCardItem = (text) => {
       const newCard = document.createElement("div");
       newCard.classList.add("cards-item");
+      let dataId = performance.now();
+      newCard.setAttribute("data-id", dataId);
       newCard.draggable = "true";
-      newCard.textContent = textarea.value;
-      if (card.style.display === "none" && textarea.value !== "") {
+      newCard.textContent = text;
+
+      if (card.style.display === "none" && text !== "") {
         card.style.display = "block";
       }
-      if (textarea.value === "") return;
+      if (text === "") return;
+
       card.append(newCard);
+
+      const removeBtn = document.createElement("button");
+      removeBtn.classList.add("remove-btn");
+      newCard.append(removeBtn);
+
+      // localStorage.setItem(newCard.getAttribute("data-id"), text);
+      // console.log(localStorage);
+    };
+
+    addBtn.addEventListener("click", () => {
+      addNewCardItem(textarea.value);
 
       textarea.value = "";
       form.style.display = "none";
@@ -65,18 +80,14 @@ const dragNdrop = () => {
       }, 0);
     });
 
-    item.addEventListener("mouseover", () => {
-      const removeBtn = document.createElement("button");
-      removeBtn.classList.add("remove-btn");
-      item.append(removeBtn);
+    const removeBtn = item.querySelector(".remove-btn");
+    removeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
 
-      item.style.backgroundColor = "#eee";
-    });
+      item.remove();
 
-    item.addEventListener("mouseout", () => {
-      const removeBtn = item.querySelector(".remove-btn");
-      removeBtn.remove();
-      item.style.backgroundColor = "#fff";
+      // localStorage.removeItem(item.dataset.id);
+      // console.log(localStorage);
     });
 
     for (let j = 0; j < cardsElems.length; j++) {
@@ -99,8 +110,7 @@ const dragNdrop = () => {
       card.addEventListener("drop", function (e) {
         this.style.backgroundColor = "rgba(0, 0, 0, 0)";
 
-        // не работает проверка!
-        if (!e.target.children) {
+        if (this.children.length === 0) {
           this.append(draggedItem);
         } else {
           this.insertBefore(draggedItem, e.target);
@@ -111,3 +121,32 @@ const dragNdrop = () => {
 };
 
 dragNdrop();
+
+window.addEventListener("beforeunload", () => {
+  const data = {};
+
+  const cardsItems = document.querySelectorAll(".cards-item");
+  cardsItems.forEach((item) => {
+    data[item.dataset.id] = item.textContent;
+  });
+
+  localStorage.setItem("data", JSON.stringify(data));
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const json = localStorage.getItem("data");
+
+  let data;
+
+  try {
+    data = JSON.parse(json);
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (data) {
+    Object.keys(data).forEach((key) => {
+      document.querySelector(`[data-id="${key}"]`).textContent = data[key];
+    });
+  }
+});
