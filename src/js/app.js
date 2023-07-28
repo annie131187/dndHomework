@@ -38,9 +38,6 @@ columns.forEach((col) => {
       const removeBtn = document.createElement("button");
       removeBtn.classList.add("remove-btn");
       newCard.append(removeBtn);
-
-      // localStorage.setItem(newCard.getAttribute("data-id"), text);
-      // console.log(localStorage);
     };
 
     addBtn.addEventListener("click", () => {
@@ -85,9 +82,6 @@ const dragNdrop = () => {
       e.preventDefault();
 
       item.remove();
-
-      // localStorage.removeItem(item.dataset.id);
-      // console.log(localStorage);
     });
 
     for (let j = 0; j < cardsElems.length; j++) {
@@ -110,10 +104,10 @@ const dragNdrop = () => {
       card.addEventListener("drop", function (e) {
         this.style.backgroundColor = "rgba(0, 0, 0, 0)";
 
-        if (this.children.length === 0) {
-          this.append(draggedItem);
+        if (card.children.length !== 0) {
+          card.insertBefore(draggedItem, e.target);
         } else {
-          this.insertBefore(draggedItem, e.target);
+          card.append(draggedItem);
         }
       });
     }
@@ -122,31 +116,31 @@ const dragNdrop = () => {
 
 dragNdrop();
 
-window.addEventListener("beforeunload", () => {
-  const data = {};
+// window.addEventListener("beforeunload", () => {
+//   const data = {};
 
-  const cardsItems = document.querySelectorAll(".cards-item");
-  cardsItems.forEach((item) => {
-    data[item.dataset.id] = item.textContent;
-  });
+//   const cardsItems = document.querySelectorAll(".cards-item");
+//   cardsItems.forEach((item) => {
+//     data[item.dataset.id] = item.textContent;
+//   });
 
-  localStorage.setItem("data", JSON.stringify(data));
-});
+//   localStorage.setItem("data", JSON.stringify(data));
+// });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const json = localStorage.getItem("data");
+// document.addEventListener("DOMContentLoaded", () => {
+//   const json = localStorage.getItem("data");
 
-  let data;
+//   let data;
 
-  try {
-    data = JSON.parse(json);
-  } catch (error) {
-    console.log(error);
-  }
+//   try {
+//     data = JSON.parse(json);
+//   } catch (error) {
+//     console.log(error);
+//   }
 
-  if (data) {
-    Object.keys(data).forEach((key) => {
-      document.querySelector(`[data-id="${key}"]`).textContent = data[key];
-    });
-  }
-});
+//   if (data) {
+//     Object.keys(data).forEach((key) => {
+//       document.querySelector(`[data-id="${key}"]`).textContent = data[key];
+//     });
+//   }
+// });
